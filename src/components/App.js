@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Question from "./Question";
 import quiz from "../data/quiz";
 
@@ -18,6 +18,19 @@ function App() {
       setScore((score) => score + 1);
     }
   }
+
+  function resetQuiz() {
+    setQuestions(quiz);
+    setCurrentQuestion(1);
+    setScore(0);
+  }
+
+  useEffect(() => {
+    if (currentQuestionId === null) {
+      const timeoutId = setTimeout(resetQuiz, 5000);
+      return () => clearTimeout(timeoutId)
+    }
+  });
 
   return (
     <main>
